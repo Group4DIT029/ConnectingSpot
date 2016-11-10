@@ -6,8 +6,8 @@ $usern="";
 //function validateUser($Username, $Password)
 //function loggedin(){
 if(isset ($_POST['login'])== "login"){
-$cn=mysqli_connect("localhost" ,"root", "");
-mysqli_select_db($cn, "event_app");
+$cn=mysqli_connect("sql7.freemysqlhosting.net" ,"sql7143923", "CpwyetWP7P");
+mysqli_select_db($cn, "sql7143923");
 
 $sql=mysqli_query($cn, "select username from membership where  username = '".$_POST['username']."'");
 $num_row=mysqli_num_rows($sql);
