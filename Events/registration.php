@@ -31,8 +31,8 @@ $sql= "INSERT into membership (image, fullname, username, dob, gender, phonenumb
 ('$image','$name','$username1' ,'$date','$gender','$email','$telephone' ,'$address','$password1','$confirm')
   ";
 
-$cn=mysqli_connect("ns1.domain.com", "root", "anita");
-mysqli_select_db($cn, "event_app");
+$cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
+mysqli_select_db($cn, "sql7143923");
 if(mysqli_query($cn, $sql));
 
 if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
@@ -73,8 +73,8 @@ if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
       <td width="20"   height="20">
           <div   class =img-div">
        <?php
-      $cn=mysqli_connect("localhost", "root", "");
-        mysqli_select_db($cn, "event_app");
+      $cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
+        mysqli_select_db($cn, "sql7143923");
        $sql = "select * from membership";
       $result = mysqli_query($cn, $sql);
      // $num_row=mysqli_num_rows($sql);
