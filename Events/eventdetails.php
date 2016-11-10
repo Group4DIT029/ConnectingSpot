@@ -9,8 +9,8 @@ $usern="";
     $target = "images/".basename($_FILES['image']['name']);
 
     //connect to database
-    $cn = mysqli_connect("localhost", "root", "");
-    mysqli_select_db($cn, "event_app");
+    $cn = mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
+    mysqli_select_db($cn, "sql7143923");
 
     //get all the submitted data from the form
       $image =  $_FILES['image']['name'];
@@ -65,8 +65,8 @@ $usern="";
   <div class="publish-image">
 
   <?php
-      $cn=mysqli_connect("localhost", "root", "");
-        mysqli_select_db($cn, "event_app");
+      $cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
+        mysqli_select_db($cn, "sql7143923");
        $sql = "select * from membership where username ='".$_SESSION['username']."'";
 
       $result = mysqli_query($cn, $sql);
@@ -96,8 +96,8 @@ $usern="";
     <div class="box">
      <?php
 
-$cn=mysqli_connect("localhost" ,"root", "");
-mysqli_select_db($cn, "afronavia");
+$cn=mysqli_connect("sql7.freemysqlhosting.net" ,"sql7143923", "CpwyetWP7P");
+mysqli_select_db($cn, "sql7143923");
 
 //ßecho $_SESSION['username1'];
 if (isset($_SESSION['loggedin']) && isset($_SESSION['username'])) 
@@ -116,8 +116,8 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
             <div id ="content">
     
      <?php
-      $cn=mysqli_connect("localhost", "root", "");
-        mysqli_select_db($cn, "event_app");
+      $cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
+        mysqli_select_db($cn, "sql7143923");
        $sql = "select * from events where event_id=1" ;//"'".$_SESSION['event_id']."'";
       $result = mysqli_query($cn, $sql);
      // $num_row=mysqli_num_rows($sql);
