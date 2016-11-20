@@ -1,6 +1,7 @@
 (function($){
 
-  var serverAddress = 'broker.mqttdashboard.com', //server ip
+    // create global app parameters...
+    var serverAddress = 'broker.mqttdashboard.com', //server ip
         port = 8000, //port
        mqttClient = null,
         nickname = randomString(6),
@@ -29,6 +30,29 @@
                 '</li>'
             ].join("")
         };
+        
+        function connect(){
+        mqttClient = new Messaging.Client(serverAddress, port, nickname);
+        mqttClient.connect({onSuccess:onConnect, keepAliveInterval: 0});
+        mqttClient.onMessageArrived = onMessageArrived;
+    }
+    
+         function onConnect() {
+        $('.chat input').focus();
+        currentRoom = '1';
+        mqttClient.subscribe(atopicName(currentRoom));
+        mqttClient.subscribe('ConnectingSpot/bot');
+        mqttClient.subscribe('ConnectingSpot/totalclients');
+        
+        initRoom(currentRoom);
+        addRoom('old',false,false);
+        seUser();
+        mqttClient.subscribe(nickname);
+         };
+    
+        window.onload = function() {
+          connect();
+        };
 
     function bindDOMEvents(){
         $('.chat-input input').on('keydown', function(e){
@@ -45,10 +69,6 @@
 
         $('.chat-submit button').on('click', function(){
             handleMessage();
-        });
-
-        $('.big-button-green.start').on('click', function(){
-            connect();
         });
 
         $('.chat-right .le-button').on('click', function(){
@@ -74,16 +94,14 @@
             var room = $(this).attr('data-roomId');
          
             if(room != currentRoom){
-                
+                if(currentRoom != '1' && currentRoom != 'old'){
+                        removeRoom(currentRoom);
+                    }
                     mqttClient.unsubscribe(atopicName(currentRoom));
                     mqttClient.subscribe(atopicName(room));
                     
                     switchRoom(room);
-                    if(currentRoom != '1' && currentRoom != 'old'){
-                        removeRoom(room);
-                    }
                     
-                
             }
         });
         
@@ -112,8 +130,7 @@
         var lockCss = 'display: ' + (protected? 'inline' : 'none');
         if($('.chat-rooms ul li[data-roomId="' + name + '"]').length == 0){
             $.tmpl(tmplt.room, { room: name, lockCss: lockCss}).appendTo('.chat-rooms ul');
-            // if announce is true, show a message about this room
-          
+           
         }
     }
 
@@ -188,7 +205,7 @@
     function insertImage(sender, message, time, isMe, isServer){
         var $html = $.tmpl(tmplt.image, {
             sender: sender,
-            time: getTime(time)
+            time: times(time)
         });
         var img = new Image();
         var canvas = $html.find('.img_uploaded')[0];
@@ -199,7 +216,10 @@
         };
         setMessageCss($html, isMe, isServer);
     }
-    
+    function times(timestamp){
+        var t = new Date(timestamp);
+        return t;
+    }
 
     function setMessageCss($html, isMe, isServer){
         if(isMe){
@@ -214,46 +234,18 @@
         return (date.getHours() < 10 ? '0' + date.getHours().toString() : date.getHours()) + ':' +
             (date.getMinutes() < 10 ? '0' + date.getMinutes().toString() : date.getMinutes());
     }
-
-    function connect(){
-        $('.chat-shadow .content').html('Connecting...');
-        mqttClient = new Messaging.Client(serverAddress, port, nickname);
-        mqttClient.connect({onSuccess:onConnect, keepAliveInterval: 0});
-        mqttClient.onMessageArrived = onMessageArrived;
-    }
     
     function seUser(){
         if(currentRoom != 'old'){
         $('.chat-clients ul').empty();
-            addClient({ nickname: nickname, clientId: nickname }, false, true);
-        $('.chat-shadow').animate({ 'opacity': 0 }, 200, function(){
-            $(this).hide();
-            $('.chat input').focus();
-        });
-        mqttClient.subscribe(nickname);
+        addClient({ nickname: nickname, clientId: nickname }, false, true);
         var msig = new Messaging.Message(JSON.stringify({"message": "bot"}));
         msig.destinationName = 'ConnectingSpot/bot';
         msig.qos = 1;
         mqttClient.send(msig);
       }
     }
-
-    function onConnect() {
-        $('.chat-shadow').animate({ 'opacity': 0 }, 200, function(){
-            $(this).hide();
-            $('.chat input').focus();
-        });
-        
-        currentRoom = '1';
-        mqttClient.subscribe(atopicName(currentRoom));
-        mqttClient.subscribe('ConnectingSpot/bot');
-        mqttClient.subscribe('ConnectingSpot/totalclients');
-        
-        initRoom(currentRoom);
-        addRoom('old',false,false);
-        seUser();
-    };
-
+    
    function onMessageArrived(message) {
         var msg = JSON.parse(message.payloadString);
         var topic = message.destinationName;
@@ -276,11 +268,10 @@
             }
         } else {
             if(msg.type == 'image') {
-                insertImage(msg.nickname, msg.message, msg.timestamp, msg.nickname == nickname, false);
+                insertImage(msg.nickname, msg.message, true, msg.nickname == nickname, false);
              
             } else  {
                 insertMessage(msg.nickname, msg.message, msg.timestamp, msg.nickname == nickname, false);
-              
             }
         }
     }
@@ -290,20 +281,12 @@
         setCurrentRoom(room, protected);
         $('.chat-clients ul').empty();
         addClient({ nickname: nickname, clientId: nickname }, false, true);
-        $('.chat-shadow').animate({ 'opacity': 0 }, 200, function(){
-            $(this).hide();
-            $('.chat input').focus();
-        });  
     }
 
     function switchRoom(room) {
         setCurrentRoom(room);
         $('.chat-clients ul').empty();
         addClient({ nickname: nickname, clientId: nickname }, false, true);
-        $('.chat-shadow').animate({ 'opacity': 0 }, 200, function(){
-            $(this).hide();
-            $('.chat input').focus();
-        });
         seUser();
     }
 
