@@ -1,3 +1,4 @@
+
 body{
   padding:0;
   margin:0;
@@ -47,14 +48,46 @@ a{text-decoration:none;}
   overflow:hidden;
 }
 
+.notification{
+  width:20px;
+  height:20px;
+  background:green;
+  position:fixed;
+  left:155px;
+  z-index:999;
+  top:0;
+  border radius:10px;
+  color:white;
+
+  }
+
+  .number{
+  text-align:center;
+  }
+
+
 .eventdetails-inner-container{
-  width:60%;
-  height:100%;
+  width:55%;
+  height:1500px;
   overflow: hidden;
   position:absolute;
   top:calc(30vh - 200px);
   left:calc(40vw - 200px);
   overflow:hidden;
+}
+
+.eventdetails-inner-container1{
+  width:80%;
+  height:1500px;
+  overflow: hidden;
+  position:absolute;
+  top:calc(30vh - 200px);
+  left:calc(40vw - 200px);
+  overflow:hidden;
+}
+.online-users{
+ background-color:grey;
+ height:800px;
 }
 
 .four{
@@ -71,9 +104,9 @@ a{text-decoration:none;}
 }
 
 .publish-image{ 
-   background:#ffffff;
+   background:;
    position:absolute;
-  width:25%; 
+  width:23%; 
   height: 700px;
   margin:5px;  
   float:left; 
@@ -84,18 +117,24 @@ a{text-decoration:none;}
 .MAINHEADER1{
 
  background:; 
- width:315px; 
+ width:27%; 
  height:50px;
  line-height:1; 
   }
 
+  .form-postion{
+    margin-left: 50px;
+
+  }
+
   .publishMAINHEADER1{
+    background:#742ECC;
     border:5px;
 border-color:#ffffff;
  float:right;
  margin-top:10px;
  background:; 
- width:225px; 
+ width:23%; 
  height:50px;
  line-height:2; 
   }
@@ -105,6 +144,14 @@ border:5px;
 border-color:#ffffff;
 
 
+}
+
+.select_detail{
+  width:100px;
+}
+
+.fl clientName{
+  background: #ffffff;
 }
 
 
@@ -131,6 +178,8 @@ border-color:#ffffff;
   text-align:center;
   margin:10px 0;
   font-size:30px;
+  font-family: sans-serif;
+  font-color:#742ECC;
 }
 .box input{
   display:block;
@@ -141,10 +190,10 @@ border-color:#ffffff;
   color:#fff;
   border:0;
 }
-.box input:focus,.box input:active,.box button:focus,.box button:active{
+.box input:focus,.box input:active,.box styled-button:focus,.box styled-button:active{
   outline:none;
 }
-.box button{
+.box styled-button{
   background:#742ECC;
   border:0;
   color:#fff;
@@ -155,9 +204,56 @@ border-color:#ffffff;
   display:block;
   cursor:pointer;
 }
+.box styled-button:active{
+  background:#27ae60;
+}
+
+.box input:focus,.box input:active,.box button:focus,.box button:active{
+  outline:none;
+}
+
+.box button{
+  background:#742ECC;
+  color:#fff;
+  cursor:pointer;
+}
 .box button:active{
   background:#27ae60;
 }
+
+.publishMAINHEADER1 input:focus,.publishMAINHEADER1 input:active,.publishMAINHEADER1 button:focus,.publishMAINHEADER1 button:active{
+  outline:none;
+}
+
+.publishMAINHEADER1 button{
+  background:#742ECC;
+  color:#fff;
+  cursor:pointer;
+}
+.publishMAINHEADER1 button:active{
+  background:#27ae60;
+}
+
+
+.box input:focus,.box input:active,.box styled-button:focus, .box styled-button:active{
+  outline:none;
+}
+.box styled-button{
+  background:#742ECC;
+  border:0;
+  color:#fff;
+  padding:10px;
+  font-size:20px;
+  width:330px;
+  margin:20px auto;
+  display:block;
+  cursor:pointer;
+}
+.styled-button:active{
+  background:#27ae60;
+}
+
+
 .box p{
   font-size:14px;
   text-align:center;
@@ -166,3 +262,49 @@ border-color:#ffffff;
   cursor:pointer;
   color:#666;
 }
+
+#connectionStatus {
+    margin-top: 7px;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    float:right;
+}
+
+body.notconnected #connectionStatus {
+    background-color: green;
+}
+
+body.connected #connectionStatus {
+    background-color: #009700;
+}
+
+body.notconnected #disconnectButton {
+    display: none;
+}
+
+body.connected #disconnectButton {
+    display: inline-block;
+}
+
+body.notconnected #connectButton {
+    display: inline-block;
+}
+
+body.connected #connectButton {
+    display: none;
+}
+
+body.connected #connectionStatus:after {
+    content: 'connected';
+    padding-left: 22px;
+}
+
+body.connectionbroke #connectionStatus:after {
+    content: 'disconnected';
+    padding-left: 22px;
+}
+
+
+
+

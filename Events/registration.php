@@ -25,21 +25,35 @@ $address= $_POST['address'];
 $password1= $_POST['password'];
 $confirm= $_POST['confirmpass'];
 $date= $_POST['date'];
-
+$password1 = password_hash($password1, PASSWORD_DEFAULT);
+$confirm = password_hash($confirm, PASSWORD_DEFAULT);
 
 $sql= "INSERT into membership (image, fullname, username, dob, gender, phonenumber, address, email, password,confirmpass) values
 ('$image','$name','$username1' ,'$date','$gender','$email','$telephone' ,'$address','$password1','$confirm')
   ";
 
-$cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
-mysqli_select_db($cn, "sql7143923");
+
+
+$cn=mysqli_connect("localhost", "root", "");
+mysqli_select_db($cn, "event_app");
 if(mysqli_query($cn, $sql));
 
 if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
-            echo "Image uploaded successfully";
+            echo '<script>
+ alert("Image Upload was sucessful");
+
+</script>';
+//keep logged info in session to assist user to log in 
+//$_SESSION['username'] = $row['username']; 
+//$_SESSION['fullname'] = $row['fullname']; 
+
+          header('Location:index.php');
         }
         else{
-            echo "There was a problem uploading image";
+            echo '<script>
+ alert("Image Upload encountered error");
+
+</script>';
         }
  
 }
@@ -57,6 +71,7 @@ if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
 
   
 </head>
+q
 
 <body>
   <div class="vid-container">
@@ -72,19 +87,7 @@ if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
       <table width="20"   height="20"><tbody width="20"   height="20">
       <td width="20"   height="20">
           <div   class =img-div">
-       <?php
-      $cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
-        mysqli_select_db($cn, "sql7143923");
-       $sql = "select * from membership";
-      $result = mysqli_query($cn, $sql);
-     // $num_row=mysqli_num_rows($sql);
-          while($row = mysqli_fetch_array($result)){
-            
-            echo "<img     height ='150'"."width ='150'"."style='margin:0px 170px '"."  src = 'images/".$row['image']."'>";
-    
-           
-          }
-      ?>
+      
        </div>
       </td>
       </tbody>
@@ -102,9 +105,9 @@ if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
        <input type="text" placeholder="Address" name= "address"/>
       <input type="text" placeholder="Password" name= "password"/>
       <input type="text" placeholder="Confirm Password" name= "confirmpass"/>
-      <button type= "submit" name= "signup">Sign Up</button>
+      <button id= "styled-button" type= "submit" name= "signup">Sign Up</button>
        </form>
-      <p>Want to publish Event? <a href="publishevent.php"><span>ADD</span></a></p>
+      <p>signing up for to this application means you have accepted the rules and regulations of F.U.P.E.S</p>
     </div>
   </div>
 </div>

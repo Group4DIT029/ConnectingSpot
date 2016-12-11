@@ -12,11 +12,12 @@
  * revision:
  * 2016-11-27, Sayf Rashid:
  *      - Changes made as part of the course DIT029 H16 Project: Software Architecture for Distributed Systems in the SEM program in Gothenburg university. 
- *      - Removing the server, we are going to use the PRATA broker and erlang will be responsible for connecting to the mysql server and handling the chat history. 
+ *      - Removing the server, we are going to use the PRATA broker(right now mqttdashboard is used) and erlang will be responsible for connecting to the mysql server and handling the chat history. 
  *      - Implementing all the server functionality(either through an erlang client or finding a variant by using the chat client directly). For example seeing which clients are subscribing to the chatroom.
- *      - 'old' room where the client can see his the chat history of the specific chat room(an erlang client will responsible of storing and publishing the old messages).
+ *      - 'old' room where the client can see the chat history of the specific chat room(an erlang client will responsible of storing and publishing the old messages).
  *      - Private chat, the ability to directly chat with another client by creating a room comprimising of both their client Ids.
  *      - Removed manually add user (the user nickname and UUID(which will be the client Id) will be handled elsewhere).
+ *       
  */  
 
 (function($){
@@ -24,9 +25,10 @@
     // create global app parameters...
     var serverAddress = 'broker.mqttdashboard.com', //server ip
         port = 8000, //port
-               mqttClient = null,
+           mqttClient = null,
         nickname = randomString(6),
         currentRoom = null,
+        old = 'Chat History',
    
         tmplt = {
             room: [
@@ -63,9 +65,9 @@
         mqttClient.subscribe(atopicName(currentRoom));
         mqttClient.subscribe('ConnectingSpot/'+currentRoom + '/#');
         initRoom(currentRoom);
-        addRoom('old',false,false);
+        addRoom(old,false,false);
         mqttClient.subscribe('ConnectingSpot/'+nickname);  
-        enterRoom(currentRoom);      
+        enterRoom(currentRoom); 
     };
     
     window.onload = function() {
@@ -140,10 +142,10 @@
          
             if(room != currentRoom){
                
-                if(currentRoom != '1' && currentRoom != 'old'){
+                if(currentRoom != '1' && currentRoom != old){
                         removeRoom(currentRoom);
                     }
-                    if(room == 'old'){
+                    if(room == old){
                         mqttClient.unsubscribe(atopicName(currentRoom));
                         var theRoom = currentRoom;
                         mqttClient.subscribe('ConnectingSpot/history/'+theRoom+'/'+nickname);
@@ -215,7 +217,7 @@
     }
     // handle the client messages
     function handleMessage(){
-        if(currentRoom != 'old'){
+        if(currentRoom != old){
        
         var message = $('.chat-input input').val().trim();
         if(message){
@@ -304,14 +306,14 @@
             addRoom(msg.room,false,false);
         }else {
             if(msg.is == 'online'){
-                if(msg._id == currentRoom && msg._id != ('old')) {
+                if(msg._id == currentRoom && msg._id != (old)) {
                     if(msg.clientIds && msg.clientIds != nickname){
                         addClient({nickname: msg.clientIds, clientId: msg.clientIds}, false);
                     }
                 }  
             }
             if(msg.is == 'offline'){
-                 if(msg._id == currentRoom && msg._id != ('old')) {
+                 if(msg._id == currentRoom && msg._id != (old)) {
                         removeClient(msg.clientIds);
             }   
             } if(msg.type == 'image' && msg.is != 'online' && msg.is != 'offline' ) {
@@ -336,11 +338,12 @@
         removeRetained();
         removeFromRoom();
         setCurrentRoom(room);
-        enterRoom(room);
+        enterRoom(currentRoom);
         $('.chat-clients ul').empty();
         addClient({ nickname: nickname, clientId: nickname }, false, true);
-        mqttClient.subscribe('ConnectingSpot/'+room+'/#'); 
+        mqttClient.subscribe('ConnectingSpot/'+room+'/#');
     }
+    
 
     $(function(){
         bindDOMEvents();
