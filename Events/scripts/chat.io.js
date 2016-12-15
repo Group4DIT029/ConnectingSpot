@@ -20,13 +20,17 @@
  *       
  */  
 
+ 
+
 (function($){
+    var b = '<?php echo "collin"; ?>';
+    alert(b);
 
     // create global app parameters...
     var serverAddress = 'broker.mqttdashboard.com', //server ip
         port = 8000, //port
            mqttClient = null,
-        nickname = randomString(6),
+        //nickname = b,
         currentRoom = null,
         old = 'Chat History',
    
@@ -44,7 +48,7 @@
             ].join(""),
             message: [
                 '<li class="cf">',
-                '<div class="fl sender">${sender}: </div><div class="fl text">${text}</div><div class="fr time">${time}</div>',
+                '<fieldset><div class="fl sender">${sender}: </div><div class="fl text">${text}</div><div class="fr time">${time}</fieldset></div>',
                 '</li>'
             ].join(""),
             image: [

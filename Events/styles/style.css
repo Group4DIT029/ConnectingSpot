@@ -58,7 +58,10 @@ abbr,acronym {border:0;}
 /* chat */
 
 
-
+html {
+	background-color: #222;
+	
+}
 body{text-align:center;font-family: 'Lato', sans-serif;background:url(/images/darkbg.png) repeat top left;}
 header{padding:50px;padding-bottom:100px;line-height:40px;background:url(/images/bg.png) repeat top left;position:relative;}
 h1{text-rendering:optimizelegibility;color:#333;font-weight:bolder;text-shadow:0 1px 1px #CCC;position:relative;display:inline-block;}
@@ -66,16 +69,16 @@ h1 sup{font-size:18px;position:absolute;right:-50px;top:-7px;cursor:pointer;}
 h3{font-weight:thin;text-rendering:optimizelegibility;color:#ccc;}
 a{color:#6c615c;text-decoration:none;}
 a:hover{color:#9d8b83;text-decoration:underline;}
-.wrapper{text-align:center;width:760px;margin-top:-65px;}
-.wrapper .info{top:0;left:0;z-index:1;width:760px;text-align:center;margin-top:0px;}
+.wrapper{text-align:center;width:960px;margin-top:-65px;}
+.wrapper .info{top:0;left:0;z-index:1;width:960px;text-align:center;margin-top:0px;}
 .wrapper .info h2{color:#555;margin-bottom:15px;font-style:italic;}
 .wrapper .info .image{margin-bottom:15px;}
 .wrapper .info .image img{border-radius:5px;box-shadow: 0 2px 3px #000;width:50px;height:50px;}
 .wrapper .info .text{color:#eee;font-style:italic;line-height:24px;}
 .wrapper .info .share{margin-top:35px;}
 iframe{text-align:center !important;}
-.wrapper .chat{z-index:2;text-align:left;width:760px;height:500px;background:#fff;display:inline-block;border-radius:15px;box-shadow:0 0 125px rgba(0,0,0,.3);border-bottom:solid 3px #ccc;}
-.wrapper .chat .chat-shadow{z-index:1;border-radius:15px;top:0;left:0;background:rgba(0,0,0,0.5);width:760px;height:503px;text-align:center;font-size:28px;color:#fff;overflow:hidden;}
+.wrapper .chat{z-index:2;text-align:left;width:960px;height:500px;background:#fff;display:inline-block;border-radius:15px;box-shadow:0 0 125px rgba(0,0,0,.3);border-bottom:solid 3px #ccc;}
+.wrapper .chat .chat-shadow{z-index:1;border-radius:15px;top:0;left:0;background:rgba(0,0,0,0.5);width:960px;height:503px;text-align:center;font-size:28px;color:#fff;overflow:hidden;}
 .wrapper .chat .chat-shadow .content{margin-top:220px;}
 
 .chat .chat-top{height:439px;}
@@ -96,7 +99,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
 .chat .chat-top .chat-right .chat-rooms{width:200px;height:220px;}
 .chat .chat-top .chat-right .chat-clients div:first-child{border-radius:0 15px 0 0;}
 .chat .chat-top .chat-right .chat-clients{width:200px;height:220px;}
-.chat .chat-top .chat-left{width:559px;height:440px;}
+.chat .chat-top .chat-left{width:759px;height:440px;}
 .chat .chat-top .chat-left .chat-messages{overflow:scroll;overflow-x:hidden;overflow-y:hidden;width:759px;height:440px;}
 .chat .chat-top .chat-left .chat-messages.scroll{box-shadow:inset 0 -2px 2px rgba(0,0,0,0.2);}
 .chat .chat-top .chat-left .chat-messages:hover{overflow-y:scroll;}
@@ -105,7 +108,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
 .chat .chat-bottom .chat-submit button{border:none;width:100%;height:60px;border-radius:0 0 15px 0;cursor:pointer;background-color: rgb(250,250,250);box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 -2px 0 rgba(0,0,0,.1) inset, 0 0 10px rgba(255,255,255,.5) inset, 0 0 0 1px rgba(0,0,0,.1), 0 2px 4px rgba(0,0,0,.2);color: rgba(60,60,60,.7);font-size:24px;font-family: 'Lato', sans-serif;font-weight:bold;-webkit-transition:200ms;line-height:58px;text-shadow:0 1px 1px #fff;}
 .chat .chat-bottom .chat-submit button:hover{background-color: rgb(255,255,255);box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 -2px 0 rgba(0,0,0,.1) inset, 0 0 10px rgba(255,255,255,.5) inset, 0 0 5px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.1), 0 2px 4px rgba(0,0,0,.2);}
 .chat .chat-bottom .chat-submit button:active{box-shadow: 0 2px 3px rgba(0,0,0,.3) inset, 0 1px 0 rgba(255,255,255,.5);background-color: rgb(210,210,210);line-height:60px;}
-.chat .chat-bottom .chat-input{width:512px;}
+.chat .chat-bottom .chat-input{width:712px;}
 .chat .chat-bottom .chat-input input[type=text]{width:712px;font-family: 'Lato', sans-serif;display:block;padding:16px 10px;border:none;background:rgba(0, 0, 0, 0.02);box-shadow:none;color:#4D4D4D;font-size:24px;border-radius:0 0 0 15px;-webkit-transition:500ms;}
 .chat .chat-bottom .chat-input input[type=text]:focus{outline:none;}
 .chat .chat-bottom .chat-input input[type=text]::-webkit-input-placeholder{color:#ccc;font-style:italic;}

@@ -3,48 +3,58 @@
 session_start();
 $output="";
 $usern="";
+$password1="";
+$hash="";
+
 //function validateUser($Username, $Password)
 //function loggedin(){
 if(isset ($_POST['login'])== "login"){
 $cn=mysqli_connect("localhost" ,"root", "");
 mysqli_select_db($cn, "event_app");
+$password1= $_POST['password'];
+//$password1 = hash('gost',$password1);
 
 
-$sql=mysqli_query($cn, "select * from membership where  username = '".$_POST['username']."' AND 
-  password = '".$_POST['password']."'");
 
+
+$sql=mysqli_query($cn, "select * from membership where  username = '".$_POST['username']."'"); //AND 
+ // password = '".$_POST['password']."'");
 
 $num_row=mysqli_num_rows($sql);
 if($num_row>=1){
 
 
 $row=mysqli_fetch_assoc($sql);
+$hash = $row['password'];
 
-$_SESSION['username'] = $row['username']; 
-$_SESSION['fullname'] = $row['fullname']; 
-$_SESSION['id'] = $row['id']; 
-$_SESSION['loggedin'] = true; 
+if(password_verify($password1, $hash)){
+  $_SESSION['username'] = $row['username']; 
+  $_SESSION['fullname'] = $row['fullname']; 
+  $_SESSION['id'] = $row['id']; 
+  $_SESSION['loggedin'] = true; 
 
-//handle the status of user whether logged in or out
-$cn=mysqli_connect("localhost" ,"root", "");
-mysqli_select_db($cn, "event_app");
-$status = mysqli_query($cn, "UPDATE `membership` SET `status` = '1' WHERE
- membership.username = '".$_POST['username']."'");
-
-
-
-header('Location:mysubscriptions.php');
- // echo $_SESSION['username'];
-
-if ($_SESSION['loggedin'] && $_SESSION['username']) 
-        //logoutUser(); 
-        $output .= '<h1>Logged out!</h1><br />You have been logged out successfully.  
-            <br /><h4>Would you like to go to <a href="index.php">site index</a>?</h4>';
-
-}
-else{
+  //handle the status of user whether logged in or out
+  $cn=mysqli_connect("localhost" ,"root", "");
+  mysqli_select_db($cn, "event_app");
   $status = mysqli_query($cn, "UPDATE `membership` SET `status` = '1' WHERE
- membership.username = '".$_POST['username']."'");
+    membership.username = '".$_POST['username']."'");
+
+
+
+
+  header('Location:mysubscriptions.php');
+  // echo $_SESSION['username'];
+
+  if ($_SESSION['loggedin'] && $_SESSION['username']) 
+          //logoutUser(); 
+          $output .= '<h1>Logged out!</h1><br />You have been logged out successfully.  
+              <br /><h4>Would you like to go to <a href="index.php">site index</a>?</h4>';
+
+  }
+  else{
+    $status = mysqli_query($cn, "UPDATE `membership` SET `status` = '1' WHERE
+   membership.username = '".$_POST['username']."'");
+  }
   echo '<script>
  alert("invalid password or username");
 

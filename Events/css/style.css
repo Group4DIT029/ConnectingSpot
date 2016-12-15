@@ -51,13 +51,12 @@ a{text-decoration:none;}
 .notification{
   width:20px;
   height:20px;
-  background:green;
-  position:fixed;
-  left:155px;
+  background:green;  
   z-index:999;
   top:0;
   border radius:10px;
   color:white;
+  margin-left:50%;
 
   }
 
@@ -76,15 +75,6 @@ a{text-decoration:none;}
   overflow:hidden;
 }
 
-.eventdetails-inner-container1{
-  width:80%;
-  height:1500px;
-  overflow: hidden;
-  position:absolute;
-  top:calc(30vh - 200px);
-  left:calc(40vw - 200px);
-  overflow:hidden;
-}
 .online-users{
  background-color:grey;
  height:800px;
@@ -134,7 +124,7 @@ border-color:#ffffff;
  float:right;
  margin-top:10px;
  background:; 
- width:23%; 
+ width:20%; 
  height:50px;
  line-height:2; 
   }

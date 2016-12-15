@@ -31,7 +31,6 @@ $usern="";
 <button type= "button" value="logout" ">logout</button>
        
 <br>
-</div>
 
 
 
@@ -280,10 +279,10 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
            var last_name = $(this).text();  
            edit_data(id,last_name, "last_name");  
       });  
-      $(document).on('click', '.btn_delete', function(){  
+      $(document).on('click', '.btn_chat', function(){  
            var id=$(this).data("id3");  
                 $.ajax({  
-                     url:"selectmyeventdetails.php",  
+                     url:"chatuserdetail.php",  
                      method:"POST",  
                      data:{id:id},  
                      dataType:"text",  
@@ -291,7 +290,7 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
 
 
   var javascriptVariable = //<?php echo $row['id']; ?>;
-  window.location.href = "groupchat.php?id=" + id;
+  window.location.href = "privatechat.php?id=" + id;
 //}
                      }  
                 });  

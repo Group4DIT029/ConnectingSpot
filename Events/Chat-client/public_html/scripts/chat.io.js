@@ -26,7 +26,7 @@
     var serverAddress = 'broker.mqttdashboard.com', //server ip
         port = 8000, //port
            mqttClient = null,
-        nickname = randomString(6),
+        nickname = 111,
         currentRoom = null,
         old = 'Chat History',
    
@@ -55,7 +55,7 @@
         };
         
     function connect(){
-        mqttClient = new Messaging.Client(serverAddress, port, nickname);
+        mqttClient = new Messaging.Client(serverAddress, port, '111');
         mqttClient.connect({onSuccess:onConnect, keepAliveInterval: 0});
         mqttClient.onMessageArrived = onMessageArrived;
     }

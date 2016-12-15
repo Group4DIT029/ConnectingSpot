@@ -4,12 +4,13 @@ $msg ="";
 $name= "";
 $username1= "";
 $password1="";
-$gender= "";
-$email="";
+$gender1= "";
+$email1="";
 $telephone= "";
-$address= "";
+$address1= "";
 $confirm= "";
-$date= "";
+$date1= "";
+
 
 if(isset($_POST['signup'])=="signup")
 {
@@ -18,21 +19,29 @@ if(isset($_POST['signup'])=="signup")
 $image =  $_FILES['image']['name'];
 $name= $_POST['fullname'];
 $username1= $_POST['username'];
-$gender= $_POST['gender'];
-$email= $_POST['email'];
+$date1= $_POST['date'];
+$gender1= $_POST['gender'];
 $telephone= $_POST['mobile'];
-$address= $_POST['address'];
+$address1= $_POST['address'];
+$email1= $_POST['email'];
 $password1= $_POST['password'];
 $confirm= $_POST['confirmpass'];
-$date= $_POST['date'];
-$password1 = password_hash($password1, PASSWORD_DEFAULT);
-$confirm = password_hash($confirm, PASSWORD_DEFAULT);
-
-$sql= "INSERT into membership (image, fullname, username, dob, gender, phonenumber, address, email, password,confirmpass) values
-('$image','$name','$username1' ,'$date','$gender','$email','$telephone' ,'$address','$password1','$confirm')
-  ";
 
 
+//$confirm = hash('gost',$confirm);
+
+if($password1 == $confirm){
+  $password1 = password_hash($password1, PASSWORD_DEFAULT);
+  $confirm = password_hash($confirm, PASSWORD_DEFAULT);
+
+  $sql= "INSERT into membership (image, fullname, username, dob, gender, phonenumber, address, email, password,confirmpass) values
+  ('$image','$name','$username1' ,'$date1','$gender1','$telephone' ,'$address1','$email1','$password1','$confirm')
+    ";
+}
+else{
+  echo "Password missmatch.";
+
+}
 
 $cn=mysqli_connect("localhost", "root", "");
 mysqli_select_db($cn, "event_app");

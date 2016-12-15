@@ -57,8 +57,7 @@
 <a href="index.php"><button type="submit" value="contact us">Logout</button></a>
 <br>
 
-<div class="notification">
-</div>
+
 
 <div class="online-users">
 <?php
@@ -109,6 +108,7 @@ echo "</div>";
       <source src="http://shortcodelic1.manuelmasiacsasi.netdna-cdn.com/themes/geode/wp-content/uploads/2014/04/milky-way-river-1280hd.mp4.mp4" type="video/mp4">
     </video>
     <div class="box">
+    
       <?php
 
  $cn=mysqli_connect("localhost", "root", "");
@@ -120,7 +120,8 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
  
  
  
-  $output = "<br>"."<fieldset><font size= '2'>Welcome! </font><b><font color= 'yellow'>". $_SESSION['username'] . "</font></b><font size= '2'> you are logged in now</fieldset>"; 
+  $output = "<br>"."<fieldset><font size= '2'>Welcome! </font><b><font color= 'yellow'>". $_SESSION['username'] . "</font></b><font size= '2'> you are logged in <div class='notification'>
+</div></fieldset>"; 
    
   }
   echo $output;
@@ -137,7 +138,11 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
       <textarea rows="4" cols="45" name="text" cols="100" placeholder ="say something about event......" ></textarea>
       </div>
       <div>
-      <button type = "submit" name = "upload" value="Upload Image">publish event</button>
+
+
+      <div class="fl chat-submit">   
+      <button type = "submit" name = "upload" value="Upload Image">publish event &rarr;</button>
+    </div>
     </div>
     </form></center>
      
@@ -169,6 +174,13 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
 
 
 </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="scripts/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="scripts/mqttws31.js"></script>
+        <script type="text/javascript" src="scripts/encoder.js"></script>
+    <script type="text/javascript" src="scripts/chat.io.js"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
       <script src="js/index.js"></script>

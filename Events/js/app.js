@@ -26,9 +26,9 @@ var websocketclient = {
 
     'connect': function () {
 
-        var host = "broker.mqttdashboard.com";
+        var host = 'broker.mqttdashboard.com';
         var port = 8000;
-        var clientId = "group4"
+        var clientId = $('#clientIdInput').val();
         var username = $('#userInput').val();
         var password = $('#pwInput').val();
         var keepAlive = parseInt($('#keepAliveInput').val());

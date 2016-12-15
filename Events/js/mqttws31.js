@@ -1447,7 +1447,7 @@ Messaging = (function (global) {
      * <li>Messaging.Message that has arrived.
      * </ol>
      */
-    var Client = function (host, port, clientId) {
+    var Client = function ("broker.mqttdashboard.com", 8000, clientId) {
         if (typeof host !== "string")
             throw new Error(format(ERROR.INVALID_TYPE, [typeof host, "host"]));
         if (typeof port !== "number" || port < 0)

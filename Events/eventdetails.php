@@ -3,7 +3,33 @@ session_start();
 $output="";
 $usern="";
     $msg ="";
+//upload picture is button pressed
+  if (isset($_POST['upload'])){
+//path to store the uploaded image
+    $target = "images/".basename($_FILES['image']['name']);
 
+    //connect to database
+    $cn = mysqli_connect("localhost", "root", "");
+    mysqli_select_db($cn, "event_app");
+
+    //get all the submitted data from the form
+      $image =  $_FILES['image']['name'];
+      $text =   $_POST['text'];
+
+
+        $sql = "INSERT INTO events (image, description) VALUES ('$image' ,    '$text')";
+        mysqli_query( $cn,  $sql);
+
+    //Now lets move the uploaded image into the folder: images
+        if (move_uploaded_file( $_FILES['image']['tmp_name'],   $target)){
+            $msg = "Image uploaded successfully";
+        }
+        else{
+            $msg = "There was a problem uploading image";
+        }
+ 
+
+  }
 
 ?>
  
@@ -36,7 +62,7 @@ $usern="";
 <a href="profile.php"><button type="submit"  value="profile" >Profile</button></a>
 <a href="events.php"><button type="submit" value=" events ">Events</button></a>
 <a href="publishevent.php"><button type="submit" value="   publish   ">Publish</button></a>
-
+<button type= "button" value="logout" ">logout</button>
        
 <br>
 
@@ -194,9 +220,14 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
       
     </div>
     
-    
+    <aside id="nickname-popup" class="popup animate avgrund-popup">
      
-    
+    <aside id="password-popup" class="popup animate avgrund-popup">
+      <div style="display: none;" class="room-name"></div>
+      <div class="popup-title"></div>
+      <div class="input"><input type="password" maxlength="20" placeholder="password" /></div>
+      <div class="big-button-green small join">Join</div>
+    </aside>
     <div class="avgrund-cover"></div>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
@@ -434,4 +465,19 @@ function increaseNumber(){
   document.getElementById('box').style.display="block";
   }
   }
- 
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $("button").click(function(){
+
+            $.ajax({
+                type: 'POST',
+                url: 'logout.php',
+                success: function(data) {
+                  window.location.href = "index.php";
+
+                }
+            });
+   });
+});
+</script>
