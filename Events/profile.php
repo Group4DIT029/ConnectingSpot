@@ -9,8 +9,8 @@
     $target = "images/".basename($_FILES['image']['name']);
 
     //connect to database
-    $cn = mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
-    mysqli_select_db($cn, "sql7143923");
+    $cn = mysqli_connect("localhost", "root", "");
+    mysqli_select_db($cn, "event_app");
 
     //get all the submitted data from the form
       $image =  $_FILES['image']['name'];
@@ -61,30 +61,31 @@
 <br>
 
 </div>
+<p> <a href="edit_profile.php"><button>Edit</button></a></p>
   <div class=" four">
 
 <a href="herbal.php"><img src="image/students.jpg" height="100px" width="120px" margin-top="100px" >
 <br>
-<center>Student Meetings</center></a>
-<a href="webdesign.php"><img src="image/webdesign.jpg" height="100px" width="120px" >
+<center>Student Gathering</center></a>
+<a href="studentgathering.php"><img src="image/webdesign.jpg" height="100px" width="120px" >
 <center>Web Design &<br> Software </a></center>
 
-<a href="afronaviaonlineradio.php"><img src="image/meeting.jpg" height="100px" width="120px" ></center>
+<a href="meeting.php"><img src="image/meeting.jpg" height="100px" width="120px" ></center>
 <center>Meetings</a></center>
 </div>
 
 <div class="six">
 <center>
-<a href="mendress.php"><img src="image/birthday.jpg" height="100px" width="120px" ><br>
+<a href="birthday.php"><img src="image/birthday.jpg" height="100px" width="120px" ><br>
 Birthdays</center></a>
 
 <center>
-<a href= "meeting.php"><img src="image/club.jpg" height="100px" width="120px" ><br>
+<a href= "clubs.php"><img src="image/club.jpg" height="100px" width="120px" ><br>
 Club Events</a></center>
 
 <center>
-<a href="wacc.php"><img src="image/meeting.jpg" height="100px" width="120px" ><br>
-Meetings</center></a>
+<a href="wedding.php"><img src="image/meeting.jpg" height="100px" width="120px" ><br>
+Wedding</center></a>
 
 </div>
 
@@ -95,8 +96,8 @@ Meetings</center></a>
     <div class="box">
      <?php
 
-$cn=mysqli_connect("sql7.freemysqlhosting.net" ,"sql7143923", "CpwyetWP7P");
-mysqli_select_db($cn, "sql7143923");
+$cn=mysqli_connect("localhost" ,"root", "");
+mysqli_select_db($cn, "events_app");
 
 //ßecho $_SESSION['username1'];
 if (isset($_SESSION['loggedin']) && isset($_SESSION['username'])) 
@@ -113,12 +114,13 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
 
 ?>
       <h1>Profile</h1>
-     <div id ="content">
+      <input type="text" id = "search_users" placeholder="search for friends...."><a href="allusers.php"><input   type = "submit" value="Search Users" style="background-color: #742ECC">
+     </a><div id ="content">
     
      <?php
-      $cn=mysqli_connect("sql7.freemysqlhosting.net", "sql7143923", "CpwyetWP7P");
-        mysqli_select_db($cn, "sql7143923");
-       $sql = "select * from membership where username=111";
+      $cn=mysqli_connect("localhost", "root", "");
+        mysqli_select_db($cn, "event_app");
+       $sql = "select * from membership where username='".$_SESSION['username']."'";
       $result = mysqli_query($cn, $sql);
      // $num_row=mysqli_num_rows($sql);
           while($row = mysqli_fetch_array($result)){
@@ -135,10 +137,9 @@ if (isset($_SESSION['loggedin']) && isset($_SESSION['username']))
             echo "</div>";
           }
       ?>
-   
-    </div>
+
       
-     
+
     </div>
   </div>
 </div>

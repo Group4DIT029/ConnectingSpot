@@ -6,17 +6,33 @@ $usern="";
 //function validateUser($Username, $Password)
 //function loggedin(){
 if(isset ($_POST['login'])== "login"){
-$cn=mysqli_connect("sql7.freemysqlhosting.net" ,"sql7143923", "CpwyetWP7P");
-mysqli_select_db($cn, "sql7143923");
+$cn=mysqli_connect("localhost" ,"root", "");
+mysqli_select_db($cn, "event_app");
 
-$sql=mysqli_query($cn, "select username from membership where  username = '".$_POST['username']."'");
+
+$sql=mysqli_query($cn, "select * from membership where  username = '".$_POST['username']."' AND 
+  password = '".$_POST['password']."'");
+
+
 $num_row=mysqli_num_rows($sql);
-
 if($num_row>=1){
-  //echo"welcome";
+
+
 $row=mysqli_fetch_assoc($sql);
+
 $_SESSION['username'] = $row['username']; 
+$_SESSION['fullname'] = $row['fullname']; 
+$_SESSION['id'] = $row['id']; 
 $_SESSION['loggedin'] = true; 
+
+//handle the status of user whether logged in or out
+$cn=mysqli_connect("localhost" ,"root", "");
+mysqli_select_db($cn, "event_app");
+$status = mysqli_query($cn, "UPDATE `membership` SET `status` = '1' WHERE
+ membership.username = '".$_POST['username']."'");
+
+
+
 header('Location:mysubscriptions.php');
  // echo $_SESSION['username'];
 
@@ -25,12 +41,14 @@ if ($_SESSION['loggedin'] && $_SESSION['username'])
         $output .= '<h1>Logged out!</h1><br />You have been logged out successfully.  
             <br /><h4>Would you like to go to <a href="index.php">site index</a>?</h4>';
 
-
-
-
 }
 else{
-echo"invalid password@";
+  $status = mysqli_query($cn, "UPDATE `membership` SET `status` = '1' WHERE
+ membership.username = '".$_POST['username']."'");
+  echo '<script>
+ alert("invalid password or username");
+
+</script>';
 }
 }
 ?>
@@ -56,11 +74,11 @@ echo"invalid password@";
     <div class="box">
       <h1>Login</h1>
       <form action="index.php" method="post">
-      <input type="text" placeholder="Username" name= "username"/>
-      <input type="text" placeholder="Password" name= "password"/>
-      <button type= "submit" name= "login">Login</button>
+      <input type="text" placeholder="Username" name= "username" />
+      <input type="password" placeholder="Password" name= "password"/>
+      <center><button type= "submit" id ="styled-button" name= "login">Login</button></center>
        </form>
-      <p>Not a member? <a href="registration.php"><span>Sign Up</span></a></p>
+      <p>Not a member? <a href="registration.php"><span> <font color="#742ECC">Sign Up</font></span></a></p>
     </div>
    
 </div>
